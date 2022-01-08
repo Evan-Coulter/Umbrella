@@ -1,10 +1,12 @@
 package com.example.umbrella.network.apiresults
 
+import com.example.umbrella.entities.City
+import com.example.umbrella.entities.Weather
 import com.example.umbrella.network.apiresults.subclasses.Alert
 import com.example.umbrella.network.apiresults.subclasses.Current
 import com.example.umbrella.network.apiresults.subclasses.Daily
 
-data class ApiResults(
+data class WeatherApiDto(
     val alerts: List<Alert>,
     val current: Current,
     val daily: List<Daily>,
@@ -12,4 +14,8 @@ data class ApiResults(
     val lon: Double,
     val timezone: String,
     val timezone_offset: Int
-)
+) {
+    fun toWeather(lon: Double, lat: Double, day: Daily, alert: Alert): Weather{
+        return Weather(City.toCity(lon, lat), day.temp.min, day.temp.max, alert.description)
+    }
+}
