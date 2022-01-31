@@ -16,6 +16,6 @@ data class WeatherApiDto(
     val timezone_offset: Int
 ) {
     fun toWeather(lon: Double, lat: Double, day: List<Daily>, alert: List<Alert>): Weather{
-        return Weather(City.toCity(lon, lat), day.temp.min, day.temp.max, alert.description)
+        return Weather(City.toCity(lon, lat), day[0].temp.min, day[0].temp.max, alert.get(0).description)
     }
 }
